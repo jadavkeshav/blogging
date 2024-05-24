@@ -36,7 +36,7 @@
     }
 
     .navbar{
-        @apply z-10 sticky top-0 flex items-center gap-12 w-full px-[5vw] py-5 h-[80px] border-b border-grey bg-white;
+        @apply z-10 sticky top-0 flex items-center gap-32 w-full px-[5vw] py-5 h-[80px] border-b border-grey bg-white;
     }
 
     .h-cover{
@@ -114,6 +114,13 @@
     .blog-index{
         @apply text-4xl sm:text-3xl lg:text-5xl font-bold text-grey leading-none;
     }
+
+    .logo{
+        @apply w-[10.5em]; 
+    }
+
+    
+
 }
 
 .ce-block__content, .ce-toolbar__content{

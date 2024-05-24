@@ -16,9 +16,9 @@ const PageNotFound = () => {
 
             <div className="mt-auto">
                 {/* <Link to={"/"} className="btn-light" >Back To Home</Link> */}
-                <img src={ theme == "light" ? darkFullLogo: lightFullLogo} className="h-8 object-contain block mx-auto select-none
+                <img src={ theme == "light" ? darkFullLogo: lightFullLogo} className="h-[8em] w-[10.5em] object-contain block mx-auto select-none
                 " />
-                <p className="mt-5 text-dark-grey ">Read millions of stories from people all around the world</p>
+                <p className="-mt-9 text-dark-grey ">Read millions of stories from people all around the world</p>
             </div>
 
 

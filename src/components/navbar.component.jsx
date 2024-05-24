@@ -56,7 +56,7 @@ const Navbar = () => {
         setTheme(newTheme);
 
         document.body.setAttribute("data-theme", newTheme)
-        
+
 
         storeIsSession("theme", newTheme);
     }
@@ -65,8 +65,11 @@ const Navbar = () => {
     return (
         <>
             <nav className="navbar z-50 ">
+
                 <Link to="/" className='flex-none w-10' >
-                    <img src={ theme == "light" ? darkLogo: lightLogo  } alt="logo" />
+                    <div className='logo'>
+                        <img src={theme == "light" ? darkLogo : lightLogo} alt="logo" />
+                    </div>
                 </Link>
 
 
@@ -93,7 +96,7 @@ const Navbar = () => {
                     </Link>
 
                     <button className='bg-grey w-12 h-12 rounded-full relative hover:bg-black/10' onClick={changeTheme} >
-                        <i className={" text-2xl block mt-1 fi fi-rr-"+(theme == "light" ? "moon-stars" : "sun" )} ></i>
+                        <i className={" text-2xl block mt-1 fi fi-rr-" + (theme == "light" ? "moon-stars" : "sun")} ></i>
                     </button>
 
                     {
