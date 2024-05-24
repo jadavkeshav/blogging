@@ -6,38 +6,63 @@ import Marker from "@editorjs/marker"
 import Header from "@editorjs/header"
 import InlineCode from "@editorjs/inline-code"
 import { uploadImage } from "../common/aws"
-const uploadImageByURL = (e) => {
-    let link = new Promise((resolve, reject) => {
-        try {
-            resolve(e);
-        }
-        catch (err) {
-            reject(err);
-        }
-    })
+import axios from "axios"
 
-    return link.then(url => {
-        return {
-            success: 1,
-            file: {
-                url
-            }
-        }
-    })
+const uploadImageByURL = (url) => {
+    let formData = new FormData();
+    formData.append("file", url);
+    formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+    formData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
 
-}
-
-const uploadImageByFILE = (e) => {
-    return uploadImage(e).then(url => {
-        if (url) {
-            return {
-                success: 1,
-                file: {
-                    url
+    return axios.post(import.meta.env.VITE_CLOUDINARY_API, formData)
+        .then(response => {
+            if (response.data.url) {
+                return {
+                    success: 1,
+                    file: {
+                        url: response.data.url
+                    }
                 }
             }
-        }
-    })
+        })
+        .catch(error => {
+            console.error("Error uploading image:", error);
+            return {
+                success: 0,
+                file: {
+                    url: ""
+                },
+                error: "Error uploading image"
+            }
+        });
+}
+const uploadImageByFILE = (file) => {
+    let formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+    formData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
+
+    return axios.post(import.meta.env.VITE_CLOUDINARY_API, formData)
+        .then(response => {
+            if (response.data.url) {
+                return {
+                    success: 1,
+                    file: {
+                        url: response.data.url
+                    }
+                }
+            }
+        })
+        .catch(error => {
+            console.error("Error uploading image:", error);
+            return {
+                success: 0,
+                file: {
+                    url: ""
+                },
+                error: "Error uploading image"
+            }
+        });
 }
 
 export const tools = {
