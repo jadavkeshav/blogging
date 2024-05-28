@@ -6,20 +6,27 @@ import { removeFromSession } from "../common/session"
 
 const UserNavigationPanel = () => {
 
-    const { userAuth: { username }, setUserAuth } = useContext(UserContext);
-    const signOutUser = () =>{
+    const { userAuth: { username, isAdmin, isEditor }, setUserAuth } = useContext(UserContext);
+    const signOutUser = () => {
         removeFromSession("user");
         setUserAuth({ access_token: null });
     }
-
     return (
         <AnimationWrapper className="absolute right-0 z-50" transition={{ duration: 0.2 }}
         >
             <div className="bg-white absolute right-0 border-grey w-60 duration-200">
-                <Link to="/editor" className="flex gap-2 link md:hidden pl-8 py-4">
-                    <i className='fi fi-rr-file-edit'></i>
-                    <p>write</p>
-                </Link>
+                {
+                    isAdmin ? <Link to="/admin/dashboard" className="flex gap-2 link pl-8 py-4">
+                        <p>Admin Portal</p>
+                    </Link> : ""
+                }
+                {
+                    isAdmin || isEditor ? <Link to="/editor" className="flex gap-2 link md:hidden pl-8 py-4">
+                        <i className='fi fi-rr-file-edit'></i>
+                        <p>write</p>
+                    </Link> : ""
+                }
+
 
                 <Link to={`/user/${username}`} className="link pl-8 py-4">
                     Profile

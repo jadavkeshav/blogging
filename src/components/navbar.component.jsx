@@ -15,7 +15,7 @@ const Navbar = () => {
 
     let navigate = useNavigate();
 
-    const { userAuth, userAuth: { access_token, profile_img, new_notification_available }, setUserAuth } = useContext(UserContext);
+    const { userAuth, userAuth: { access_token, profile_img, new_notification_available, isAdmin, isEditor }, setUserAuth } = useContext(UserContext);
 
     useEffect(() => {
         if (access_token) {
@@ -62,6 +62,7 @@ const Navbar = () => {
     }
 
 
+
     return (
         <>
             <nav className="navbar z-50 ">
@@ -90,10 +91,12 @@ const Navbar = () => {
                         <i className='fi fi-rr-search text-xl '></i>
                     </button>
 
-                    <Link to={"/editor"} className='hidden md:flex gap-2 link'>
-                        <i className='fi fi-rr-file-edit'></i>
-                        <p>write</p>
-                    </Link>
+                    {
+                        isAdmin || isEditor ? <Link to={"/editor"} className='hidden md:flex gap-2 link'>
+                            <i className='fi fi-rr-file-edit'></i>
+                            <p>write</p>
+                        </Link> : ""
+                    }
 
                     <button className='bg-grey w-12 h-12 rounded-full relative hover:bg-black/10' onClick={changeTheme} >
                         <i className={" text-2xl block mt-1 fi fi-rr-" + (theme == "light" ? "moon-stars" : "sun")} ></i>

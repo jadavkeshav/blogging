@@ -14,6 +14,14 @@ import ChangePassword from "./pages/change-password.page.jsx";
 import EditProfile from "./pages/edit-profile.page.jsx";
 import Notifications from "./pages/notifications.page.jsx";
 import ManageBlogs from "./pages/manage-blogs.page.jsx";
+import AdminDash from "./components/admin.component.jsx";
+import AdminSideNav from "./components/adminsidenav.component.jsx";
+import { AdminBlogs } from "./components/adminblogs.component.jsx";
+import AdminManageBlogs from "./pages/admin-manage-blogs.page.jsx";
+import AdminUsers from "./pages/admin-user.page.jsx";
+import UserRequests from "./pages/admin-user-requestes.page.jsx";
+
+
 
 export const UserContext = createContext({})
 
@@ -34,11 +42,11 @@ const App = () => {
         userInSession ? setUserAuth(JSON.parse(userInSession)) : setUserAuth({ access_token: null });
 
         if (themeInSession) {
-            setTheme(()=> {
+            setTheme(() => {
                 document.body.setAttribute("data-theme", themeInSession);
                 return themeInSession;
             });
-        } else{   
+        } else {
             document.body.setAttribute("data-theme", theme)
         }
 
@@ -52,6 +60,12 @@ const App = () => {
                     <Route path="/editor/:blog_id" element={<Editor />} />
                     <Route path="/" element={<Navbar />} >
                         <Route index element={<HomePage />} />
+                        <Route path="admin" element={<AdminSideNav />}>
+                            <Route path="dashboard" element={<AdminDash />} />
+                            <Route path="blogs" element={<AdminManageBlogs />} />
+                            <Route path="users" element={<AdminUsers />} />
+                            <Route path="request" element={<UserRequests />} />
+                        </Route>
                         <Route path="dashboard" element={<SideNav />} >
                             <Route path="blogs" element={<ManageBlogs />} />
                             <Route path="notifications" element={<Notifications />} />

@@ -1,14 +1,16 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { NavLink, Navigate, Outlet } from "react-router-dom"
 import { UserContext } from "../App"
+import Loader from "./loader.component";
 
-const SideNav = () => {
-    let { userAuth: { access_token, new_notification_available, isAdmin, isEditor } } = useContext(UserContext);
+const AdminSideNav = () => {
+    let { userAuth} = useContext(UserContext);
 
     let page = location.pathname.split("/")[2];
 
     let [pageState, setPageState] = useState(page.replace("-", " "));
     let [showSideNav, setShowSideNav] = useState(false);
+    let [loading, setLoading] = useState(true);
 
     let activeTabLine = useRef();
     let sideBarIconTab = useRef();
@@ -29,12 +31,25 @@ const SideNav = () => {
     }
 
     useEffect(() => {
+        if (userAuth && userAuth.isAdmin !== undefined) {
+            setLoading(false);
+        } else {
+            setLoading(true);
+        }
+    }, [userAuth]);
+
+    useEffect(() => {
         setShowSideNav(false);
-        pageStateTab.current.click();
+        // pageStateTab.current.click();
     }, [pageState])
 
+    if (loading) {
+        return <Loader/>; // Or any loading indicator you prefer
+    }
+
     return (
-        access_token === null ? <Navigate to="/signin" /> :
+        userAuth && userAuth.isAdmin ? 
+        userAuth.access_token === null ? <Navigate to="/signin" /> :
             <>
                 <section className=" relative flex gap-10 py-0 m-0 max-md:flex-col     ">
                     <div className="sticky top-[80px] z-30 ">
@@ -55,26 +70,20 @@ const SideNav = () => {
                             <h1 className="text-xl text-dark-grey mb-3">Dashboard</h1>
                             <hr className=" border-grey mb-8 -ml-6 mr-6" />
 
-                            <NavLink className="sidebar-link" to="/dashboard/blogs" onClick={(e) => setPageState(e.target.innerText)}>
+                            <NavLink className="sidebar-link" to="/admin/blogs" onClick={(e) => setPageState(e.target.innerText)}>
                                 <i className="fi fi-rr-document "></i>
                                 Blogs
                             </NavLink>
 
-                            <NavLink className="sidebar-link" to="/dashboard/notifications" onClick={(e) => setPageState(e.target.innerText)}>
-                                <div className="relative">
-                                    <i className="fi fi-rr-bell "></i>
-                                    {
-                                        new_notification_available ? <span className="bg-red w-2 h-2 rounded-full absolute z-10 top-0 right-0"></span> : ""
-                                    }
-                                </div>
-                                Notification
+                            <NavLink className="sidebar-link" to="/admin/users" onClick={(e) => setPageState(e.target.innerText)}>
+                                <i className="fi fi-rr-user"></i>
+                                Users
                             </NavLink>
 
-                            <NavLink className="sidebar-link" to="/editor" onClick={(e) => setPageState(e.target.innerText)}>
-                                <i className="fi fi-rr-file-edit "></i>
-                                Write
+                            <NavLink className="sidebar-link" to="/admin/request" onClick={(e) => setPageState(e.target.innerText)}>
+                                <i className="fi fi-rr-users"></i>
+                                Users Request
                             </NavLink>
-
 
                             <h1 className="text-xl text-dark-grey mt-20 mb-3">Settings</h1>
                             <hr className=" border-grey mb-8 -ml-6 mr-6" />
@@ -98,7 +107,7 @@ const SideNav = () => {
                         <Outlet />
                     </div>
                 </section>
-            </>
-    )
+            </> : <Navigate to="/signin" />
+    ) 
 }
-export default SideNav
+export default AdminSideNav

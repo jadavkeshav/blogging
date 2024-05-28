@@ -5,6 +5,8 @@ import BlogEditor from "../components/blog-editor.component";
 import PublishForm from "../components/publish-form.component";
 import Loader from "../components/loader.component";
 import axios from "axios";
+import PageNotFound from "./404.page";
+import RequestPage from "./request.editor";
 
 const blogStructure = {
     title: "",
@@ -29,7 +31,7 @@ const Editor = () => {
 
     const [loading, setLoading] = useState(true);
 
-    const { userAuth: { access_token } } = useContext(UserContext);
+    const { userAuth: { access_token, isAdmin, isEditor } } = useContext(UserContext);
 
     useEffect(() => {
         if (!blog_id) {
@@ -51,6 +53,7 @@ const Editor = () => {
     return (
         <EditorContext.Provider value={{ blog, setBlog, editorState, setEditorState, textEditor, setTeaxtEditor }} >
             {
+                !isEditor ? <RequestPage /> :
                 access_token === null ? <Navigate to="/signin" />
                     :
                     loading ? <Loader />

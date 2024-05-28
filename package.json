@@ -20,14 +20,19 @@
     "@editorjs/list": "^1.8.0",
     "@editorjs/marker": "^1.3.0",
     "@editorjs/quote": "^2.5.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@flaticon/flaticon-uicons": "^2.2.0",
+    "@mui/material": "^5.15.18",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "axios": "^1.4.0",
     "firebase": "^10.1.0",
     "framer-motion": "^10.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
-    "react-router-dom": "^6.14.2"
+    "react-router-dom": "^6.14.2",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

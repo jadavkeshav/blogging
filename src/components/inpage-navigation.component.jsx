@@ -32,7 +32,6 @@ const InPageNavigation = ({ routes, defaultHidden, defaultActiveIndex = 0, child
 
     }, [width])
 
-    console.log("width", width)
 
     const changePageState = (btn, i) => {
 
