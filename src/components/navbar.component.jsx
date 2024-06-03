@@ -68,8 +68,8 @@ const Navbar = () => {
             <nav className="navbar z-50 ">
 
                 <Link to="/" className='flex-none w-10' >
-                    <div className='logo'>
-                        <img src={theme == "light" ? darkLogo : lightLogo} alt="logo" />
+                    <div className='logo  '>
+                        <img src={theme == "light" ? darkLogo : lightLogo} alt="logo" className="w-[60vh] h-[10vh]"  />
                     </div>
                 </Link>
 
@@ -91,12 +91,10 @@ const Navbar = () => {
                         <i className='fi fi-rr-search text-xl '></i>
                     </button>
 
-                    {
-                        isAdmin || isEditor ? <Link to={"/editor"} className='hidden md:flex gap-2 link'>
-                            <i className='fi fi-rr-file-edit'></i>
-                            <p>write</p>
-                        </Link> : ""
-                    }
+                    <Link to={"/editor"} className='hidden md:flex gap-2 link'>
+                        <i className='fi fi-rr-file-edit'></i>
+                        <p>write</p>
+                    </Link>
 
                     <button className='bg-grey w-12 h-12 rounded-full relative hover:bg-black/10' onClick={changeTheme} >
                         <i className={" text-2xl block mt-1 fi fi-rr-" + (theme == "light" ? "moon-stars" : "sun")} ></i>

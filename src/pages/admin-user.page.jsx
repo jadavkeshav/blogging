@@ -104,17 +104,19 @@ const AdminUsers = () => {
     const sortedUsers = sortData(filteredUsers);
 
     return (
-        <div className="flex flex-col items-center justify-center p-4 text-gray-800 w-[90%]">
-            <h1 className="text-4xl font-bold text-center mb-8">Admin Users</h1>
-            <div className="w-full mb-4 ">
+        <div className="flex flex-col items-center justify-center p-4 text-gray-800 w-[100%] lg:w-[85%]">
+            <div className="w-full mb-4 bg-slate-100 rounded-full">
                 <TextField
                     type="search"
                     label="Search"
                     value={searchQuery}
                     onChange={handleSearchChange}
                     variant="outlined"
+                    fullWidth
+                    InputProps={{ style: { borderRadius: '9999px', backgroundColor: 'inherit' } }}
+
                     size="small"
-                    className="mb-4 w-[25%] max-sm:w-[100%]" 
+                    className="mb-4 w-[25%] max-sm:w-[100%]"
                 />
             </div>
             <TableContainer component={Paper} style={{ overflowX: 'auto' }}>
@@ -185,6 +187,7 @@ const AdminUsers = () => {
                                     Joined At
                                 </TableSortLabel>
                             </TableCell>
+                            <TableCell>Role</TableCell> {/* New Column for Role */}
                             <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -201,26 +204,26 @@ const AdminUsers = () => {
                                 <TableCell>{user.account_info.total_posts}</TableCell>
                                 <TableCell>{user.account_info.total_reads.toLocaleString()}</TableCell>
                                 <TableCell>{new Date(user.joinedAt).toLocaleDateString()}</TableCell>
+                                <TableCell>{user.admin ? 'Admin' : (user.editor ? 'Writer' : 'User')}</TableCell> {/* Display Role */}
                                 <TableCell>
-                                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                    <Button
-                                        size="small"
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={() => handleShowProfile(user.personal_info.username)}
-                                    >
-                                        Show Profile
-                                    </Button>
-                                </div>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    </div>
-);
+                                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                        <Button
+                                            size="small"
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={() => handleShowProfile(user.personal_info.username)}
+                                        >
+                                            Show Profile
+                                        </Button>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </div>
+    );
 };
 
 export default AdminUsers;
-
