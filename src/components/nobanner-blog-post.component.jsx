@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom"
 import { getDate } from "../common/date"
+import { ThemeContext } from "@emotion/react"
+import { useContext } from "react"
 
 const MinimalBlogPost = ({ blog, index }) => {
+
+    let { theme } = useContext(ThemeContext);
+
     let { title, blog_id: id, author: { personal_info: { fullname, username, profile_img } },publishedAt } = blog
     return (
         <Link to={`/blog/${id}`} className="flex  gap-5 mb-8">

@@ -53,7 +53,7 @@ const Editor = () => {
     return (
         <EditorContext.Provider value={{ blog, setBlog, editorState, setEditorState, textEditor, setTeaxtEditor }} >
             {
-                !isEditor ? <RequestPage /> :
+                !isEditor ?  access_token === null ? <Navigate to="/signin" /> : <RequestPage /> :
                 access_token === null ? <Navigate to="/signin" />
                     :
                     loading ? <Loader />
