@@ -20,6 +20,7 @@ import { AdminBlogs } from "./components/adminblogs.component.jsx";
 import AdminManageBlogs from "./pages/admin-manage-blogs.page.jsx";
 import AdminUsers from "./pages/admin-user.page.jsx";
 import UserRequests from "./pages/admin-user-requestes.page.jsx";
+import axios from "axios";
 
 
 
@@ -50,6 +51,12 @@ const App = () => {
             document.body.setAttribute("data-theme", theme)
         }
 
+    }, [])
+
+    useEffect(() => {
+        setTimeout(() => {
+            axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/")
+        }, 500)
     }, [])
 
     return (
