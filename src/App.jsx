@@ -53,11 +53,11 @@ const App = () => {
 
     }, [])
 
-    useEffect(() => {
-        setTimeout(() => {
-            axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/")
-        }, 500)
-    }, [])
+    setTimeout(() => {
+        axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/")
+    }, 500)
+
+  
 
     return (
         <ThemeContext.Provider value={{ theme, setTheme }} >
